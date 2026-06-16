@@ -34,7 +34,14 @@ class ResourceController extends Controller
      */
     public function store(Request $request)
     {
-        // Logique pour enregistrer une nouvelle ressource
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+        ]);
+
+        // Logique pour enregistrer la nouvelle ressource en base de données
+        // Pour l'instant, nous ne faisons rien avec $validated['name']
+
+        return redirect()->route('resources.index')->with('success', 'Ressource créée avec succès.');
     }
 
     /**
