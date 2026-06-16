@@ -57,7 +57,10 @@ class ResourceController extends Controller
      */
     public function edit(string $id)
     {
-        // Logique pour afficher le formulaire d'édition
+        // Simule la récupération d'une ressource. À remplacer par une requête au modèle.
+        $resource = ['id' => $id, 'name' => 'Ressource ' . $id];
+
+        return view('resources.edit', ['resource' => $resource]);
     }
 
     /**
@@ -65,7 +68,14 @@ class ResourceController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Logique pour mettre à jour une ressource
+        $validated = $request->validate([
+            'name' => 'required|min:3',
+        ]);
+
+        // Logique pour mettre à jour la ressource en base de données
+        // Pour l'instant, nous ne faisons rien avec $validated['name']
+
+        return redirect()->route('resources.index')->with('success', 'Ressource mise à jour avec succès.');
     }
 
     /**

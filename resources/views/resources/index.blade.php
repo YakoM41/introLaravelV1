@@ -6,9 +6,13 @@
     </div>
 @endif
 
-{{-- Ici, on bouclera sur les ressources pour les afficher --}}
-<ul>
+<a href="{{ route('resources.create') }}">Créer une nouvelle ressource</a>
+
+<ul style="margin-top: 20px;">
     @foreach ($resources as $resource)
-        <li>{{ $resource['name'] }}</li>
+        <li style="margin-bottom: 10px;">
+            {{ $resource['name'] }}
+            <a href="{{ route('resources.edit', $resource['id']) }}" style="margin-left: 15px;">Modifier</a>
+        </li>
     @endforeach
 </ul>
