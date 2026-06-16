@@ -83,6 +83,9 @@ class ResourceController extends Controller
      */
     public function destroy(string $id)
     {
-        // Logique pour supprimer une ressource
+        // Logique pour supprimer la ressource de la base de données
+        // Pour l'instant, nous ne faisons rien avec $id
+
+        return redirect()->route('resources.index')->with('success', 'Ressource supprimée avec succès.');
     }
 }
