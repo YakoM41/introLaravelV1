@@ -10,12 +10,12 @@
     </div>
 @endif
 
-<form action="{{ route('resources.update', $resource['id']) }}" method="POST">
+<form action="{{ route('resources.update', $resource->id) }}" method="POST">
     @csrf
     @method('PUT')
     <div>
         <label for="name">Nom :</label>
-        <input type="text" id="name" name="name" value="{{ old('name', $resource['name']) }}">
+        <input type="text" id="name" name="name" value="{{ old('name', $resource->name) }}">
     </div>
     <button type="submit">Mettre à jour</button>
 </form>

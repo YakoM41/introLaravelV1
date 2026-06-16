@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resource;
 use Illuminate\Http\Request;
 
 class ResourceController extends Controller
@@ -11,13 +12,7 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        // À remplacer par la logique pour récupérer les données depuis le modèle
-        $resources = [
-            ['id' => 1, 'name' => 'Ressource 1'],
-            ['id' => 2, 'name' => 'Ressource 2'],
-            ['id' => 3, 'name' => 'Ressource 3'],
-        ];
-
+        $resources = Resource::all();
         return view('resources.index', ['resources' => $resources]);
     }
 
@@ -38,8 +33,7 @@ class ResourceController extends Controller
             'name' => 'required|min:3',
         ]);
 
-        // Logique pour enregistrer la nouvelle ressource en base de données
-        // Pour l'instant, nous ne faisons rien avec $validated['name']
+        Resource::create($validated);
 
         return redirect()->route('resources.index')->with('success', 'Ressource créée avec succès.');
     }
@@ -47,33 +41,29 @@ class ResourceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Resource $resource)
     {
-        // Logique pour afficher une ressource spécifique
+        return view('resources.show', ['resource' => $resource]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Resource $resource)
     {
-        // Simule la récupération d'une ressource. À remplacer par une requête au modèle.
-        $resource = ['id' => $id, 'name' => 'Ressource ' . $id];
-
         return view('resources.edit', ['resource' => $resource]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Resource $resource)
     {
         $validated = $request->validate([
             'name' => 'required|min:3',
         ]);
 
-        // Logique pour mettre à jour la ressource en base de données
-        // Pour l'instant, nous ne faisons rien avec $validated['name']
+        $resource->update($validated);
 
         return redirect()->route('resources.index')->with('success', 'Ressource mise à jour avec succès.');
     }
@@ -81,10 +71,9 @@ class ResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Resource $resource)
     {
-        // Logique pour supprimer la ressource de la base de données
-        // Pour l'instant, nous ne faisons rien avec $id
+        $resource->delete();
 
         return redirect()->route('resources.index')->with('success', 'Ressource supprimée avec succès.');
     }
